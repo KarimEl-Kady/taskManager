@@ -1,0 +1,97 @@
+/* General styling */
+.register {
+    max-width: 400px;
+    margin: 70px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  label {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #333;
+  }
+
+  input.form-control {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  input.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  button.btn {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  button.btn:hover {
+    background-color: #0056b3;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+  }
+
+  .swal-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.5em;
+  }
+
+  .swal-content {
+    font-size: 1.1em;
+    color: #333;
+  }
+
+  .swal-confirm-button {
+    background-color: #3085d6;
+    color: white;
+    font-size: 1em;
+  }
+
+
+
+  .login {
+    max-width: 400px;
+    margin: 70px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 12px;
+  }
