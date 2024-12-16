@@ -12,9 +12,9 @@ class AuthService{
             'password' => Hash::make($request->password)
         ];
         $user = User::create($data);
-
+        $token = $user->createToken(get_class($user))->plainTextToken;
         return response()->json(['message' => 'User registered successfully',
-         'user' => $user],
+         'token' => $token],
           200);
     }
 

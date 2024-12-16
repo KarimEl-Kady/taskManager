@@ -1,12 +1,9 @@
 <template>
     <div class="home-container">
       <Sidebar />
-      <!-- Main Content Section -->
       <main class="main-content">
         <div class="categories-section" id="categories">
           <h3>Categories</h3>
-          <button class="create-category-btn" @click="addCategory">Create</button>
-          <!-- Category Table -->
           <table v-if="categories.length > 0">
             <thead>
               <tr>
@@ -20,7 +17,7 @@
                 <td>{{ category.title }}</td>
                 <td>{{ category.description.slice(0, 50) }}...</td> <!-- Show a short description -->
                 <td>
-                  <button @click="editCategory(category.id)">Edit</button>
+                  <button @click="restoreCategory(category.id)">Restore</button>
                   <button @click="deleteCategory(category.id)">Delete</button>
                 </td>
               </tr>
@@ -45,33 +42,44 @@
 
       const fetchCategories = async () => {
         try {
-          const response = await axios.get('/api/getCatogry', {
+          const response = await axios.get('/api/getDeletedCategories', {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
-            },
+                Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+              }
           });
+          console.log(localStorage.getItem('auth_token'));
+
           categories.value = response.data.data;
         } catch (error) {
           console.error('Error fetching categories:', error);
         }
       };
 
-      
-      const addCategory = () => {
-        console.log('Navigating to create category page');
-        router.push({ name: 'create-category' });
-      };
 
 
-      const editCategory = (id) => {
-        console.log('Edit category with id:', id);
-        router.push({ name: 'edit-category', params: { id } });
-      };
+
+
+      const restoreCategory = async (id) => {
+    try {
+        await axios.put(`/api/restore/${id}`, {}, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
+            },
+        });
+
+        fetchCategories();
+        alert('Restored successfully');
+    } catch (error) {
+        console.error('Error restoring category:', error);
+        alert('Failed to restore category');
+    }
+};
+
 
 
       const deleteCategory = async (id) => {
         try {
-          await axios.delete(`/api/deleteCatogry/${id}`, {
+          await axios.delete(`/api/forceDelete/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
             },
@@ -88,7 +96,7 @@
         fetchCategories();
       });
 
-      return { categories, addCategory, editCategory, deleteCategory };
+      return { categories,restoreCategory, deleteCategory };
     },
   };
   </script>

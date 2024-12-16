@@ -52,12 +52,21 @@
     methods: {
       async submitForm() {
         try {
-          // Send registration request to backend
-          const response = await axios.post('registerUser', this.form);
-          alert('Registration successful!');
-          // Redirect or reset form after successful registration
+
+          const response = await axios.post('api/registerUser', this.form);
+          localStorage.setItem('auth_token', response.data.token);
+          console.log(response.data.token);
+
+          this.$swal.fire({
+            icon: 'success',
+            title: 'Registration Successful!',
+            text: 'You are now registered.',
+            confirmButtonText: 'Ok'
+          });
+          this.$router.push('/catogries');
+
         } catch (error) {
-          // Handle validation errors
+
           if (error.response && error.response.data.errors) {
             this.errors = error.response.data.errors;
           }
