@@ -7,6 +7,9 @@ import home from '../components/home/Index.vue';
 import catogryIndex from '../components/catogries/Index.vue';
 import catogryForm from '../components/catogries/Form.vue';
 import catogryArchieve from '../components/catogries/Archieved.vue';
+import taskIndex from '../components/tasks/Index.vue';
+import taskForm from '../components/tasks/Form.vue';
+import taskArchieve from '../components/tasks/Archieved.vue';
 const routes =[
     {
         path : '/',
@@ -38,7 +41,7 @@ const routes =[
     name: 'create-category',
     component: catogryForm,
   },
- 
+
   {
     path: '/category/edit/:id',
     name: 'edit-category',
@@ -48,7 +51,28 @@ const routes =[
     path: '/category/archieve',
     name: 'category-archieve',
     component: catogryArchieve
-  }
+  },
+{
+  path:'/tasks',
+  name:'tasks',
+  component : taskIndex
+},
+{
+  path: '/task/create',
+  name: 'create-task',
+  component: taskForm,
+},
+
+{
+  path: '/task/edit/:id',
+  name: 'edit-task',
+  component: taskForm,
+},
+{
+  path: '/task/archieve',
+  name: 'task-archieve',
+  component: taskArchieve
+}
 ]
 
 const router =  createRouter({
