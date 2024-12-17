@@ -30,10 +30,9 @@
               ></textarea>
             </div>
 
-            <!-- Category Selection -->
             <div class="form-group">
               <label for="category">Select Category</label>
-              <select v-model="task.category_id" required>
+              <select v-model="task.catogry_id" required>
                 <option value="" disabled selected>Select a Category</option>
                 <option v-for="cat in categories" :key="cat.id" :value="cat.id">
                   {{ cat.title }}
@@ -99,6 +98,7 @@
             },
           });
           task.value = response.data.data;
+          console.log(task.value);
         } catch (error) {
           console.error('Error fetching task:', error);
           alert('Failed to fetch task data');
