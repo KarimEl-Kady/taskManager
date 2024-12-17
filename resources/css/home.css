@@ -56,6 +56,11 @@
     color: #007bff;
   }
 
+  .sidebar .sidebar-footer ,
+    .sidebar .sidebar-footer button  {
+    width :100%;
+  }
+
   /* Main Content Area Styles */
   .main-content {
     flex-grow: 1;
