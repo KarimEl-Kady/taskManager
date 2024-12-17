@@ -3,7 +3,7 @@
       <Sidebar />
       <main class="main-content">
         <div class="categories-section" id="categories">
-          <h3>Categories</h3>
+          <h3>Categories Archive</h3>
           <table v-if="categories.length > 0">
             <thead>
               <tr>

@@ -42,4 +42,8 @@ class TaskController extends Controller
     public function forceDelete($id){
         return $this->taskService->forceDelete($id);
     }
+
+    public function changeTaskStatus($id){
+        return $this->taskService->changeTaskStatus($id);
+    }
 }

@@ -3,7 +3,7 @@
       <Sidebar />
       <main class="main-content">
         <div class="tasks-section" id="tasks">
-          <h3>Tasks</h3>
+          <h3>Tasks Archive</h3>
           <table v-if="tasks.length > 0">
             <thead>
               <tr>
@@ -32,6 +32,7 @@
   <script>
   import { ref, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
+  import Swal from 'sweetalert2';
 
   export default {
     name: 'TaskTable',
@@ -61,17 +62,27 @@
 
       const restoreTask = async (id) => {
     try {
-        await axios.put(`/api/restore/${id}`, {}, {
+        await axios.put(`/api/restoreTask/${id}`, {}, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
             },
         });
 
         fetchTasks();
-        alert('Restored successfully');
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Task restored successfully',
+            confirmButtonText: 'Ok'
+        });
     } catch (error) {
         console.error('Error restoring task:', error);
-        alert('Failed to restore task');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to restore task',
+            confirmButtonText: 'Ok'
+        });
     }
 };
 
@@ -79,16 +90,26 @@
 
       const deleteTask = async (id) => {
         try {
-          await axios.delete(`/api/forceDelete/${id}`, {
+          await axios.delete(`/api/forceDeleteTask/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
             },
           });
           fetchTasks();
-          alert('Task deleted successfully');
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Task deleted successfully',
+            confirmButtonText: 'Ok'
+          });
         } catch (error) {
           console.error('Error deleting task:', error);
-          alert('Failed to delete task');
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to delete task',
+            confirmButtonText: 'Ok'
+          })
         }
       };
 

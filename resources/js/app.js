@@ -12,6 +12,8 @@ import router from './router';
 import '../css/auth.css';
 import '../css/home.css';
 import Sidebar from './components/Sidebar.vue';
+import TaskTable from './components/tasks/Index.vue';
+
 
 
 const vueApp = createApp(app);
@@ -21,6 +23,8 @@ vueApp.use(Swal);
 vueApp.use(router);
 
 vueApp.component('Sidebar', Sidebar);
+vueApp.component('TaskTable', TaskTable);
+
 
 
 vueApp.mount('#app');

@@ -6,7 +6,7 @@ use App\Models\Task\Task;
 
 class TaskService{
     public function getTasks(){
-        $tasks =  Task::all();
+        $tasks =  Task::orderByDesc('id')->get();
         return TaskResource::collection($tasks);
     }
 
@@ -20,7 +20,7 @@ class TaskService{
         );
         return response()->json(['message' => 'Task created successfully',
          'task' => $task],
-          404);
+          200);
     }
 
     public function getTaskById($id){
@@ -55,7 +55,6 @@ class TaskService{
     public function restore($id)
     {
         $task = Task::withTrashed()->findOrFail($id);  // Ensure it fetches even soft-deleted categories
-        $task->restore();
         if ($task) {
             $task->restore();
             return response()->json([
@@ -79,5 +78,14 @@ class TaskService{
         return response()->json([
             'message' => 'Task deleted permanently'
         ], 200);
+    }
+
+    public function changeTaskStatus($id){
+        $task = Task::find($id);
+        $task->status = $task->status == 0 ? 1 : ($task->status == 1 ? 2 : 0);
+        $task->save();
+        return response()->json(['message' => 'Task status updated successfully',
+         'task' => $task],
+          200);
     }
 }

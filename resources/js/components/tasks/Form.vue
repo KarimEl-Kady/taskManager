@@ -54,6 +54,8 @@
   import { ref, onMounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import axios from 'axios';
+  import Swal from 'sweetalert2';
+
 
   export default {
     name: 'TaskFormWithSidebar',
@@ -86,6 +88,11 @@
         } catch (error) {
           console.error('Error fetching categories:', error);
           alert('Failed to fetch categories');
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed to fetch categories!',
+                confirmButtonText: 'Ok'
+          });
         }
       };
 
@@ -101,7 +108,11 @@
           console.log(task.value);
         } catch (error) {
           console.error('Error fetching task:', error);
-          alert('Failed to fetch task data');
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed to fetch task data',
+                confirmButtonText: 'Ok'
+          });
         }
       };
 
@@ -115,7 +126,11 @@
                 Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
               },
             });
-            alert('Task updated successfully');
+            Swal.fire({
+            icon: 'success',
+            title: 'Task updated successfully',
+                confirmButtonText: 'Ok'
+          });
           } else {
 
             await axios.post('/api/createTask', task.value, {
@@ -123,12 +138,22 @@
                 Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
               },
             });
-            alert('Task created successfully');
+            console.log('here');
+
+            Swal.fire({
+            icon: 'success',
+            title: 'Task created successfully!',
+                confirmButtonText: 'Ok'
+          });
           }
           router.push('/tasks');
         } catch (error) {
           console.error('Error submitting form:', error);
-          alert('Failed to submit form');
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed to submit form',
+                confirmButtonText: 'Ok'
+          });
         }
       };
 

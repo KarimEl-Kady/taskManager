@@ -46,6 +46,7 @@
   import { ref, onMounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import axios from 'axios';
+  import Swal from 'sweetalert2';
 
   export default {
     name: 'CategoryFormWithSidebar',
@@ -69,7 +70,11 @@
           category.value = response.data.data;
         } catch (error) {
           console.error('Error fetching category:', error);
-          alert('Failed to fetch category data');
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed to fetch category data',
+                confirmButtonText: 'Ok'
+          });
         }
       };
 
@@ -81,19 +86,31 @@
                 Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
               },
             });
-            alert('Category updated successfully');
+            Swal.fire({
+            icon: 'success',
+            title: 'Category updated successfully!',
+                confirmButtonText: 'Ok'
+          });
           } else {
             await axios.post('/api/createCatogry', category.value, {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
               },
             });
-            alert('Category created successfully');
+            Swal.fire({
+            icon: 'success',
+            title: 'Category created successfully!',
+                confirmButtonText: 'Ok'
+          });
           }
           router.push('/catogries');
         } catch (error) {
           console.error('Error submitting form:', error);
-          alert('Failed to submit form');
+          Swal.fire({
+            icon: 'error',
+            title: 'Failed to submit form',
+                confirmButtonText: 'Ok'
+          })
         }
       };
 
