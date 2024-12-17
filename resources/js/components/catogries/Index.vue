@@ -35,6 +35,7 @@
   <script>
   import { ref, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
+  import Swal from 'sweetalert2';
 
   export default {
     name: 'CategoryTable',
@@ -56,7 +57,7 @@
         }
       };
 
-      
+
       const addCategory = () => {
         console.log('Navigating to create category page');
         router.push({ name: 'create-category' });
@@ -77,10 +78,18 @@
             },
           });
           fetchCategories();
-          alert('Category deleted successfully');
+        Swal.fire({
+            icon: 'success',
+            title: 'Category deleted successfully!',
+                confirmButtonText: 'Ok'
+          });
         } catch (error) {
           console.error('Error deleting category:', error);
-          alert('Failed to delete category');
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed to delete category',
+            confirmButtonText: 'Ok'
+          });
         }
       };
 

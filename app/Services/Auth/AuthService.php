@@ -39,7 +39,6 @@ class AuthService{
             $token->delete();
         });
 
-
         return response()->json(['message' => 'Logged out successfully'], 200);
     }
 }

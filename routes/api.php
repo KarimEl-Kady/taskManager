@@ -41,6 +41,7 @@ Route::group(
     Route::get('getDeletedTasks' , [TaskController::class , 'getDeletedTasks']);
     Route::put('restoreTask/{id}' , [TaskController::class , 'restore']);
     Route::delete('forceDeleteTask/{id}' , [TaskController::class , 'forceDelete']);
+    Route::get('changeTaskStatus/{id}' , [TaskController::class , 'changeTaskStatus']);
 
     Route::post('logout' , [AuthController::class , 'logout']);
     });
