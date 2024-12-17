@@ -38,7 +38,9 @@ Route::group(
     Route::get('getTaskById/{id}' , [TaskController::class , 'getTaskById']);
     Route::put('updateTask/{id}' , [TaskController::class , 'updateTask']);
     Route::delete('deleteTask/{id}' , [TaskController::class , 'deleteTask']);
-    Route::get('getDeletedCategories' , [TaskController::class , 'getDeletedCategories']);
+    Route::get('getDeletedTasks' , [TaskController::class , 'getDeletedTasks']);
     Route::put('restoreTask/{id}' , [TaskController::class , 'restore']);
     Route::delete('forceDeleteTask/{id}' , [TaskController::class , 'forceDelete']);
+
+    Route::post('logout' , [AuthController::class , 'logout']);
     });

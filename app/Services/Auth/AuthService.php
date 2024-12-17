@@ -32,4 +32,14 @@ class AuthService{
         return response()->json(['token' => $token] ,
          200);
     }
+
+    public function logout($request)
+    {
+        $request->user()->tokens->each(function ($token) {
+            $token->delete();
+        });
+
+
+        return response()->json(['message' => 'Logged out successfully'], 200);
+    }
 }

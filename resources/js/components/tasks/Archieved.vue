@@ -2,9 +2,9 @@
     <div class="home-container">
       <Sidebar />
       <main class="main-content">
-        <div class="categories-section" id="categories">
-          <h3>Categories</h3>
-          <table v-if="categories.length > 0">
+        <div class="tasks-section" id="tasks">
+          <h3>Tasks</h3>
+          <table v-if="tasks.length > 0">
             <thead>
               <tr>
                 <th>Title</th>
@@ -13,17 +13,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="category in categories" :key="category.id">
-                <td>{{ category.title }}</td>
-                <td>{{ category.description.slice(0, 50) }}...</td> <!-- Show a short description -->
+              <tr v-for="task in tasks" :key="task.id">
+                <td>{{ task.title }}</td>
+                <td>{{ task.description.slice(0, 50) }}...</td> <!-- Show a short description -->
                 <td>
-                  <button @click="restoreCategory(category.id)">Restore</button>
-                  <button @click="deleteCategory(category.id)">Delete</button>
+                  <button @click="restoreTask(task.id)">Restore</button>
+                  <button @click="deleteTask(task.id)">Delete</button>
                 </td>
               </tr>
             </tbody>
           </table>
-          <p v-else>No categories found.</p>
+          <p v-else>No tasks found.</p>
         </div>
       </main>
     </div>
@@ -34,24 +34,24 @@
   import { useRouter } from 'vue-router';
 
   export default {
-    name: 'CategoryTable',
+    name: 'TaskTable',
 
     setup() {
-      const categories = ref([]);
+      const tasks = ref([]);
       const router = useRouter();
 
-      const fetchCategories = async () => {
+      const fetchTasks = async () => {
         try {
-          const response = await axios.get('/api/getDeletedCategories', {
+          const response = await axios.get('/api/getDeletedTasks', {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
               }
           });
           console.log(localStorage.getItem('auth_token'));
 
-          categories.value = response.data.data;
+          tasks.value = response.data.data;
         } catch (error) {
-          console.error('Error fetching categories:', error);
+          console.error('Error fetching tasks:', error);
         }
       };
 
@@ -59,7 +59,7 @@
 
 
 
-      const restoreCategory = async (id) => {
+      const restoreTask = async (id) => {
     try {
         await axios.put(`/api/restore/${id}`, {}, {
             headers: {
@@ -67,36 +67,36 @@
             },
         });
 
-        fetchCategories();
+        fetchTasks();
         alert('Restored successfully');
     } catch (error) {
-        console.error('Error restoring category:', error);
-        alert('Failed to restore category');
+        console.error('Error restoring task:', error);
+        alert('Failed to restore task');
     }
 };
 
 
 
-      const deleteCategory = async (id) => {
+      const deleteTask = async (id) => {
         try {
           await axios.delete(`/api/forceDelete/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('auth_token')}`,
             },
           });
-          fetchCategories();
-          alert('Category deleted successfully');
+          fetchTasks();
+          alert('Task deleted successfully');
         } catch (error) {
-          console.error('Error deleting category:', error);
-          alert('Failed to delete category');
+          console.error('Error deleting task:', error);
+          alert('Failed to delete task');
         }
       };
 
       onMounted(() => {
-        fetchCategories();
+        fetchTasks();
       });
 
-      return { categories,restoreCategory, deleteCategory };
+      return { tasks,restoreTask, deleteTask };
     },
   };
   </script>
